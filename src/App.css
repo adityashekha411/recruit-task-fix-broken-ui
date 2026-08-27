@@ -12,12 +12,12 @@
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
-  gap: 16px;
   background: #1f2933;
   color: white;
   padding: 16px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
+  gap: 16px;
 }
 
 .header-bar h1 {
@@ -43,6 +43,7 @@
   padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .add-row button {
@@ -85,7 +86,7 @@
   padding: 4px 12px;
   font-size: 12px;
   cursor: pointer;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .status-pill.ok {
@@ -103,14 +104,16 @@
   color: #9ca3af;
   font-size: 14px;
   padding: 4px;
-  flex-shrink: 0;
+  border: none;
+  background: transparent;
 }
 
 .remove-icon:hover {
   color: #ef4444;
 }
 
-@media (max-width: 600px) {
+/* Fix: use a responsive width instead of a fixed width so the layout works on narrow screens. */
+@media (max-width: 640px) {
   .app {
     padding: 16px;
   }
@@ -118,7 +121,6 @@
   .header-bar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
   }
 
   .ticker {
