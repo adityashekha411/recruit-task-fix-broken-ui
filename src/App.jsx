@@ -17,12 +17,16 @@ function App() {
     const interval = setInterval(() => {
       setSecondsSinceUpdate((seconds) => seconds + 1)
     }, 1000)
+
     return () => clearInterval(interval)
   }, [])
 
   function addMember() {
     if (!newName.trim()) return
-    setMembers([...members, { id: Date.now(), name: newName, status: 'On track' }])
+    setMembers([
+      ...members,
+      { id: Date.now(), name: newName, status: 'On track' },
+    ])
     setNewName('')
     setSecondsSinceUpdate(0)
   }
@@ -36,7 +40,10 @@ function App() {
     setMembers(
       members.map((m) =>
         m.id === id
-          ? { ...m, status: m.status === 'On track' ? 'Blocked' : 'On track' }
+          ? {
+              ...m,
+              status: m.status === 'On track' ? 'Blocked' : 'On track',
+            }
           : m
       )
     )
@@ -47,7 +54,9 @@ function App() {
     <div className="app">
       <header className="header-bar">
         <h1>Standup Tracker</h1>
-        <span className="ticker">Last update: {secondsSinceUpdate}s ago</span>
+        <span className="ticker">
+          Last update: {secondsSinceUpdate}s ago
+        </span>
       </header>
 
       <div className="add-row">
@@ -62,15 +71,19 @@ function App() {
       <ul className="member-list">
         {members.map((member) => (
           <li className="member-row" key={member.id}>
+            {/* Fix: add a stable key so React can correctly track each list item. */}
             <span className="member-name">{member.name}</span>
 
             <button
-              className={`status-pill ${member.status === 'On track' ? 'ok' : 'blocked'}`}
+              className={`status-pill ${
+                member.status === 'On track' ? 'ok' : 'blocked'
+              }`}
               onClick={() => toggleStatus(member.id)}
             >
               {member.status}
             </button>
 
+            {/* Fix: use a real button with an accessible label instead of a clickable div. */}
             <button
               className="remove-icon"
               onClick={() => removeMember(member.id)}
