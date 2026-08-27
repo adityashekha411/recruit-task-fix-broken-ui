@@ -12,10 +12,10 @@ function App() {
   const [newName, setNewName] = useState('')
   const [secondsSinceUpdate, setSecondsSinceUpdate] = useState(0)
 
-  // "Seconds since last update" ticker
+  // Fix: use the latest state value so the ticker keeps counting correctly.
   useEffect(() => {
     const interval = setInterval(() => {
-      setSecondsSinceUpdate(secondsSinceUpdate + 1)
+      setSecondsSinceUpdate((seconds) => seconds + 1)
     }, 1000)
     return () => clearInterval(interval)
   }, [])
@@ -61,17 +61,23 @@ function App() {
 
       <ul className="member-list">
         {members.map((member) => (
-          <li className="member-row">
+          <li className="member-row" key={member.id}>
             <span className="member-name">{member.name}</span>
+
             <button
               className={`status-pill ${member.status === 'On track' ? 'ok' : 'blocked'}`}
               onClick={() => toggleStatus(member.id)}
             >
               {member.status}
             </button>
-            <div className="remove-icon" onClick={() => removeMember(member.id)}>
+
+            <button
+              className="remove-icon"
+              onClick={() => removeMember(member.id)}
+              aria-label={`Remove ${member.name}`}
+            >
               ✕
-            </div>
+            </button>
           </li>
         ))}
       </ul>

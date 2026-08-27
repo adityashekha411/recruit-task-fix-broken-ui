@@ -3,14 +3,16 @@
   margin: 0 auto;
   padding: 24px;
   font-family: system-ui, sans-serif;
+  box-sizing: border-box;
 }
 
 .header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 600px;
-  white-space: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 16px;
   background: #1f2933;
   color: white;
   padding: 16px 20px;
@@ -26,6 +28,7 @@
 .ticker {
   font-size: 13px;
   opacity: 0.8;
+  white-space: nowrap;
 }
 
 .add-row {
@@ -36,6 +39,7 @@
 
 .add-row input {
   flex: 1;
+  min-width: 0;
   padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -66,10 +70,12 @@
   padding: 10px 14px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .member-name {
   flex: 1;
+  min-width: 0;
   font-weight: 500;
 }
 
@@ -79,6 +85,7 @@
   padding: 4px 12px;
   font-size: 12px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .status-pill.ok {
@@ -96,8 +103,25 @@
   color: #9ca3af;
   font-size: 14px;
   padding: 4px;
+  flex-shrink: 0;
 }
 
 .remove-icon:hover {
   color: #ef4444;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 16px;
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ticker {
+    white-space: normal;
+  }
 }
